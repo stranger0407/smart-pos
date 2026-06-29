@@ -358,7 +358,7 @@ export const Billing: React.FC<BillingProps> = ({ currentUser, userRole, addToas
 
 
   return (
-    <div className="content-wrapper">
+    <div className="content-wrapper billing-wrapper">
       <div className="billing-layout">
         
         {/* Catalog Panel (Left) */}

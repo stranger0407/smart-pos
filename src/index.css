@@ -475,12 +475,34 @@ body {
   transform: scale(0.92);
 }
 
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
 /* POS Terminal Billing specific */
+.content-wrapper.billing-wrapper {
+  height: 100%;
+  overflow: hidden;
+  padding: 16px 24px;
+}
+
 .billing-layout {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 24px;
-  height: calc(100vh - 120px);
+  grid-template-columns: 1fr 420px;
+  gap: 20px;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -506,6 +528,7 @@ body {
   grid-template-columns: 1fr 180px;
   gap: 12px;
   margin-bottom: 16px;
+  flex-shrink: 0;
 }
 
 .category-filter {
@@ -514,6 +537,13 @@ body {
   overflow-x: auto;
   padding-bottom: 8px;
   margin-bottom: 16px;
+  flex-shrink: 0;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.category-filter::-webkit-scrollbar {
+  display: none;
 }
 
 .category-tab {
