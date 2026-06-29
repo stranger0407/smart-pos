@@ -267,7 +267,7 @@ export const Purchases: React.FC<PurchasesProps> = ({ currentUser, userRole, add
         </div>
       ) : (
         // Suppliers Directory List
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '24px' }}>
+        <div className="purchases-split-layout">
           {/* Supplier Directory table */}
           <div className="card" style={{ padding: '0px', overflow: 'hidden' }}>
             <div className="table-container" style={{ border: 'none' }}>

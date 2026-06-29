@@ -218,7 +218,7 @@ export const Settings: React.FC<SettingsProps> = ({ currentUser, userRole, addTo
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px' }}>
+      <div className="settings-split-layout">
         
         {/* Left: Store profile & Backup */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -255,7 +255,7 @@ export const Settings: React.FC<SettingsProps> = ({ currentUser, userRole, addTo
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="form-grid-2col">
                 <div className="form-group">
                   <span className="form-label">Store Contact Mobile</span>
                   <input

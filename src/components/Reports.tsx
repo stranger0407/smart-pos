@@ -206,8 +206,7 @@ export const Reports: React.FC<ReportsProps> = ({ userRole, addToast }) => {
         </div>
       </div>
 
-      {/* Valuation & Dues Details Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '24px' }}>
+      <div className="reports-charts-grid">
         
         {/* Category Sales Bar Chart */}
         <div className="card" style={{ height: '320px', display: 'flex', flexDirection: 'column' }}>

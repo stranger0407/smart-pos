@@ -819,6 +819,56 @@ body {
   display: none;
 }
 
+/* Responsive Grid Classes - Desktop Defaults */
+.dashboard-charts-grid,
+.reports-charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.dashboard-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ledger-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.ledger-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+}
+
+.purchases-split-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+}
+
+.settings-split-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+
+.mobile-only {
+  display: none !important;
+}
+
 /* --- Mobile Responsive Rules --- */
 .mobile-header {
   display: none;
@@ -972,5 +1022,43 @@ body {
 
   .catalog-panel, .cart-panel {
     height: auto;
+  }
+
+  .mobile-only {
+    display: inline-flex !important;
+  }
+
+  .dashboard-charts-grid,
+  .dashboard-bottom-grid,
+  .form-grid-2col,
+  .ledger-overview-grid,
+  .ledger-split-layout,
+  .purchases-split-layout,
+  .reports-charts-grid,
+  .settings-split-layout {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Ledger Master-Detail Toggle on Mobile */
+  .ledger-split-layout.details-active .customer-list-panel {
+    display: none !important;
+  }
+
+  .ledger-split-layout:not(.details-active) .customer-details-panel {
+    display: none !important;
+  }
+
+  /* Clean up Inventory table columns on mobile */
+  .inventory-wrapper .pos-table th:nth-child(2),
+  .inventory-wrapper .pos-table td:nth-child(2),
+  .inventory-wrapper .pos-table th:nth-child(3),
+  .inventory-wrapper .pos-table td:nth-child(3),
+  .inventory-wrapper .pos-table th:nth-child(4),
+  .inventory-wrapper .pos-table td:nth-child(4),
+  .inventory-wrapper .pos-table th:nth-child(6),
+  .inventory-wrapper .pos-table td:nth-child(6) {
+    display: none !important;
   }
 }

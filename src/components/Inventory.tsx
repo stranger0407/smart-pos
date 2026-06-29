@@ -360,7 +360,7 @@ export const Inventory: React.FC<InventoryProps> = ({ currentUser, userRole, add
             </div>
             
             <form onSubmit={handleProductSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="form-grid-2col">
                 <div className="form-group" style={{ gridColumn: 'span 2' }}>
                   <span className="form-label">Product Name</span>
                   <input

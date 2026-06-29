@@ -5,6 +5,7 @@ import {
   Users, 
   Search, 
   ArrowRight,
+  ArrowLeft,
   Plus,
   Coins,
   History,
@@ -154,7 +155,7 @@ export const Ledger: React.FC<LedgerProps> = ({ currentUser, userRole, addToast 
       </div>
 
       {/* Ledger Overview Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '24px', marginBottom: '24px' }}>
+      <div className="ledger-overview-grid">
         
         {/* Outstanding statistics card */}
         <div className="kpi-card" style={{ height: 'fit-content' }}>
@@ -186,10 +187,10 @@ export const Ledger: React.FC<LedgerProps> = ({ currentUser, userRole, addToast 
       </div>
 
       {/* Ledger Split Layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+      <div className={`ledger-split-layout ${selectedCustId ? 'details-active' : ''}`}>
         
         {/* Customers list (Left) */}
-        <div className="card" style={{ padding: '0px', overflow: 'hidden' }}>
+        <div className="card customer-list-panel" style={{ padding: '0px', overflow: 'hidden' }}>
           <div style={{ padding: '16px', borderBottom: '1px solid var(--border-color)', fontWeight: 700 }}>
             Customer Accounts Directory
           </div>
@@ -241,9 +242,19 @@ export const Ledger: React.FC<LedgerProps> = ({ currentUser, userRole, addToast 
         </div>
 
         {/* Customer Ledger History (Right) */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="card customer-details-panel" style={{ display: 'flex', flexDirection: 'column' }}>
           {selectedCustomer ? (
             <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              
+              {/* Mobile Back Button */}
+              <button 
+                className="btn btn-secondary mobile-only" 
+                style={{ width: 'fit-content', marginBottom: '16px', gap: '6px', padding: '8px 12px', fontSize: '0.8rem' }} 
+                onClick={() => setSelectedCustId(null)}
+              >
+                <ArrowLeft size={16} />
+                Back to Directory
+              </button>
               
               {/* Header profile */}
               <div style={{ display: 'flex', justifyItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border-color)', paddingBottom: '16px', marginBottom: '16px' }}>

@@ -227,7 +227,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userRole, onNavigate }) =>
       </div>
 
       {/* Charts Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', marginBottom: '24px' }}>
+      <div className="dashboard-charts-grid">
         {/* Hourly Sales Area Chart */}
         <div className="card" style={{ height: '350px', display: 'flex', flexDirection: 'column' }}>
           <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -294,7 +294,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ userRole, onNavigate }) =>
       </div>
 
       {/* Lists Section: Recent Sales & Audit Logs */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+      <div className="dashboard-bottom-grid">
         {/* Recent Transactions */}
         <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
           <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
