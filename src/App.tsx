@@ -17,7 +17,8 @@ import {
   BarChart2, 
   Settings as SettingsIcon, 
   LogOut, 
-  Terminal
+  Terminal,
+  Menu
 } from 'lucide-react';
 
 interface Toast {
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<string>('');
   const [userRole, setUserRole] = useState<string>('');
   const [activeScreen, setActiveScreen] = useState<string>('dashboard');
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   // Seed DB on mount
@@ -91,15 +93,18 @@ export const App: React.FC = () => {
   return (
     <div className="app-container">
       
+      {/* Sidebar Overlay Backdrop for Mobile */}
+      {isSidebarOpen && <div className="sidebar-backdrop" onClick={() => setIsSidebarOpen(false)} />}
+      
       {/* Sidebar Navigation */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div>
           {/* Brand header */}
           <div className="brand-section">
             <div className="brand-logo">
               <Terminal size={20} />
             </div>
-            <div>
+            <div className="brand-info">
               <h2 className="brand-name">Smart POS</h2>
               <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Terminal #01</span>
             </div>
@@ -111,10 +116,14 @@ export const App: React.FC = () => {
               <li key={item.id}>
                 <a
                   className={`nav-item ${activeScreen === item.id ? 'active' : ''}`}
-                  onClick={() => setActiveScreen(item.id)}
+                  onClick={() => {
+                    setActiveScreen(item.id);
+                    setIsSidebarOpen(false);
+                  }}
+                  title={item.label}
                 >
                   {item.icon}
-                  <span>{item.label}</span>
+                  <span className="nav-text">{item.label}</span>
                 </a>
               </li>
             ))}
@@ -133,15 +142,29 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          <button className="btn btn-secondary" style={{ width: '100%', gap: '8px', padding: '10px' }} onClick={handleLogout}>
+          <button className="btn btn-secondary logout-btn" style={{ width: '100%', gap: '8px', padding: '10px' }} onClick={handleLogout}>
             <LogOut size={16} />
-            Exit Terminal
+            <span className="logout-text">Exit Terminal</span>
           </button>
         </div>
       </aside>
 
       {/* Screen Render Viewport */}
       <main style={{ flexGrow: 1, height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        
+        {/* Mobile Header Bar */}
+        <div className="mobile-header">
+          <button className="hamburger-btn" onClick={() => setIsSidebarOpen(true)}>
+            <Menu size={22} />
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="brand-logo" style={{ width: '28px', height: '28px', boxShadow: 'none' }}>
+              <Terminal size={14} />
+            </div>
+            <span style={{ fontSize: '0.95rem', fontWeight: 800, letterSpacing: '-0.3px' }}>Smart POS</span>
+          </div>
+          <span className="badge badge-success" style={{ fontSize: '0.6rem', padding: '2px 8px' }}>{userRole}</span>
+        </div>
         {activeScreen === 'dashboard' && <Dashboard currentUser={currentUser} userRole={userRole} onNavigate={setActiveScreen} />}
         {activeScreen === 'billing' && <Billing currentUser={currentUser} userRole={userRole} addToast={addToast} />}
         {activeScreen === 'inventory' && <Inventory currentUser={currentUser} userRole={userRole} addToast={addToast} />}
