@@ -200,7 +200,7 @@ export const Inventory: React.FC<InventoryProps> = ({ currentUser, userRole, add
   });
 
   return (
-    <div className="content-wrapper">
+    <div className="content-wrapper inventory-wrapper">
       <div className="screen-header">
         <div>
           <h1 className="screen-title">Physical Inventory</h1>
@@ -253,8 +253,8 @@ export const Inventory: React.FC<InventoryProps> = ({ currentUser, userRole, add
       </div>
 
       {/* Inventory table */}
-      <div className="card" style={{ padding: '0px', overflow: 'hidden' }}>
-        <div className="table-container">
+      <div className="inventory-table-card">
+        <div className="inventory-table-container">
           <table className="pos-table">
             <thead>
               <tr>
