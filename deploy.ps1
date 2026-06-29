@@ -24,12 +24,15 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "Step 4: Configuring static website hosting..." -ForegroundColor Cyan
-aws s3api put-bucket-website --bucket $bucketName --website-configuration '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Suffix":"index.html"}}'
+$websiteJson = '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Key":"index.html"}}'
+[System.IO.File]::WriteAllText("temp_website.json", $websiteJson)
+aws s3api put-bucket-website --bucket $bucketName --website-configuration file://temp_website.json
+Remove-Item temp_website.json -Force -ErrorAction SilentlyContinue
 
 Write-Host "Step 5: Disabling 'Block Public Access' policies..." -ForegroundColor Cyan
-aws s3api put-public-access-block --bucket $bucketName --public-access-block-configuration "BlockPublicAccess=false,IgnorePublicAcls=false,BlockPublicAcls=false,RestrictPublicBuckets=false"
+aws s3api put-public-access-block --bucket $bucketName --public-access-block-configuration "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
 
-Write-Host "Step 6: Creating policy JSON file..." -ForegroundColor Cyan
+Write-Host "Step 6: Creating policy JSON file (No BOM)..." -ForegroundColor Cyan
 $policyJson = @"
 {
   "Version": "2012-10-17",
@@ -44,16 +47,15 @@ $policyJson = @"
   ]
 }
 "@
-$policyJson | Out-File -FilePath temp_policy.json -Encoding utf8
+[System.IO.File]::WriteAllText("temp_policy.json", $policyJson)
 
 Write-Host "Step 7: Applying public-read policy to S3 bucket..." -ForegroundColor Cyan
 aws s3api put-bucket-policy --bucket $bucketName --policy file://temp_policy.json
-
-# Clean up temp policy file
 Remove-Item temp_policy.json -Force -ErrorAction SilentlyContinue
 
 Write-Host "Step 8: Uploading assets to S3 (syncing dist/)..." -ForegroundColor Cyan
-aws s3 sync dist/ s3://$bucketName/ --acl public-read
+# Sync without --acl public-read since Bucket Owner Enforced disables ACLs (public-read bucket policy handles the access)
+aws s3 sync dist/ s3://$bucketName/
 
 Write-Host "=============================================" -ForegroundColor Green
 $endpoint = "http://$bucketName.s3-website-$region.amazonaws.com"
